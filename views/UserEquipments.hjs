@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/styles/bootstrap.min.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
+    <script src="/js/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/src/UserEquipments.js" type="text/javascript"></script>
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+body {
+    background-color: #D8D2C2;
+}
+
+.filter-section {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.filter-section label {
+    font-weight: bold;
+}
+
+.navbar-inverse .nav > li > a {
+    color: #fff;
+    padding: 10px 20px;
+    transition: color 0.3s ease;
+}
+
+.navbar-inverse .nav > li > a:hover {
+    color: #ffd700;
+}
+
+.navbar-inverse .navbar-brand {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.navbar-inverse .navbar-brand:hover {
+    color: #ffd700;
+}
+
+.navbar-inverse .nav i {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.navbar-inverse {
+    background-color: #343a40;
+    border: none;
+}
+
+/* Equipment Cards Styling */
+.card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Card Content Padding */
+.card-body {
+    padding-left: 10px;
+}
+
+/* Row Spacing */
+.row {
+    margin-bottom: 10px;
+}
+#detailsImgTag {
+    max-width: 300px; 
+    height: auto; 
+    display: block;
+    margin: 0 auto; 
+    border: 1px solid #ccc; 
+}
+    </style>
+
+    <div>
+        <nav class="navbar navbar-inverse">
+            <a class="navbar-brand" >Engineering Assets</a>
+            <ul class="nav navbar-nav">
+      <li><a href="/dashboard"><i class="fas fa-home"></i> Customer Home Page</a></li>
+      <li><a href="/userprofile"><i class="fas fa-user"></i> Profile</a></li>
+      <li><a href="/UserEquipments"><i class="fas fa-shopping-bag"></i> Equipments</a></li>
+      <li><a href="/cart"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+      <li><a href="/order"><i class="fas fa-receipt"></i> Orders</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" style="padding-right: 30px;">
+                <li><a href="/"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Equipments</h2>
+
+        <!-- Row for Search Bar, Search Button, Filters -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search by Name or ID">
+            </div>
+            <div class="col-md-2">
+                <button id="searchBtn" class="btn btn-primary btn-block">Search</button>
+            </div>
+            <div class="col-md-3">
+                <select id="categoryFilter" class="form-control">
+                    <option value="">Select Category</option>
+                    <!-- Add categories dynamically here -->
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select id="SuppliersFilter" class="form-control">
+                    <option value="">Select Supplier</option>
+                    <!-- Add suppliers dynamically here -->
+                </select>
+            </div>
+        </div>
+
+
+<div class="row" id="equipmentTable">
+    {{#result}}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{{equipmentImg}}" class="card-img-top" alt="Image">
+            <div class="card-body">
+                <h5 class="card-title">{{equipmentName}}</h5>
+                <p><strong>Model:</strong> {{modelNumber}}</p>
+                <p><strong>Rating:</strong> {{rating}} / 5</p>
+                <p><strong>Quantity:</strong> {{quantity}}</p>
+                <p><strong>Price:</strong> ${{price}}</p>
+            </div>
+            <div class="card-footer text-center">
+                <button data-id="{{equipmentID}}" class="btn btn-info viewRatings" data-toggle="modal" data-target="#ratingsModal">View Ratings</button>
+                <button data-id="{{equipmentID}}" class="btn btn-success addToCart" type="button">Add to Cart</button>
+                <button data-id="{{equipmentID}}" class="btn btn-warning rateEquipment" data-toggle="modal" data-target="#rateModal" type="button">Rate</button>
+                <button data-id="{{equipmentID}}" class="btn btn-info viewDetails" data-toggle="modal" data-target="#detailsModal">View Details</button>
+            </div>
+        </div>
+    </div>
+    {{/result}}
+</div>
+
+
+        <div class="modal fade" id="ratingsModal" tabindex="-1" role="dialog" aria-labelledby="ratingsModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ratingsModalLabel">Equipment Ratings</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="ratingsModalBody">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="rateModal" tabindex="-1" role="dialog" aria-labelledby="rateModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="rateModalLabel">Rate Equipment</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="ratingForm">
+                            <div class="form-group">
+                                <label for="score">Score (1-5):</label>
+                                <input type="number" class="form-control" id="score" name="score" min="1" max="5" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="comment">Comment:</label>
+                                <textarea class="form-control" id="comment" name="comment" rows="4" required></textarea>
+                            </div>
+                            <input type="hidden" id="equipmentID" name="equipmentID">
+                            <button type="submit" class="btn btn-primary">Submit Rating</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">Equipment Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="detailsModalBody">
+                <p><strong>Image:</strong> <img id="detailsImgTag" alt="Equipment Image" style="max-width: 100%; height: auto;" /></p>
+                <p><strong>Name:</strong> <span id="detailsName"></span></p>
+                <p><strong>Model:</strong> <span id="detailsModel"></span></p>
+                <p><strong>Rating:</strong> <span id="detailsRating"></span> / 5</p>
+                <p><strong>Quantity:</strong> <span id="detailsQuantity"></span></p>
+                <p><strong>Price:</strong> $<span id="detailsPrice"></span></p>
+                <p><strong>Location:</strong> <span id="detailsLocation"></span></p>
+                <p><strong>Status:</strong> <span id="detailsStatus"></span></p>
+                <p><strong>Category:</strong> <span id="detailsCategory"></span></p>
+                <p><strong>Supplier:</strong> <span id="detailsSupplier"></span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    </div>
+</body>
+</html>

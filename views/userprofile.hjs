@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel='stylesheet' href='/styles/bootstrap.min.css' />
+  <link rel='stylesheet' href='/styles/style.css' />
+  <script src="/js/jquery-2.2.0.min.js" type="text/javascript"></script>
+  <script src="/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="/src/userProfile.js" type="text/javascript"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    #userInfo {
+      width: 70%;
+      margin: 20px auto; /* Center horizontally */
+      background-color: #D8D2C2;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: left; 
+    }
+
+    #userInfo p {
+      font-size: 18px;
+    }
+
+    #userInfo span {
+      font-weight: bold;
+    }
+
+    .navbar-inverse .nav > li > a {
+      color: #fff;
+      padding: 10px 20px;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-inverse .nav > li > a:hover {
+      color: #ffd700;
+    }
+
+    .navbar-inverse .navbar-brand {
+      color: #fff;
+      font-size: 20px;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-inverse .navbar-brand:hover {
+      color: #ffd700;
+    }
+
+    .navbar-inverse .nav i {
+      margin-right: 8px;
+      font-size: 18px;
+    }
+
+    .navbar-inverse {
+      background-color: #343a40;
+      border: none;
+    }
+
+    .section {
+      width: 70%;
+      margin: 20px auto; 
+      background-color: #D8D2C2;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: left; 
+    }
+
+    .section h2 {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .section p {
+      text-align: left;
+      font-size: 16px;
+    }
+
+    .section a {
+      text-decoration: none;
+      color: #333;
+      transition: color 0.3s ease;
+      text-align: left;
+    }
+
+    .section a:hover {
+      color: #ffd700;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <nav class="navbar navbar-inverse">
+      <a class="navbar-brand">Engineering Assets</a>
+      <ul class="nav navbar-nav">
+        <li><a href="/dashboard"><i class="fas fa-home"></i> Customer Home Page</a></li>
+        <li><a href="/userprofile"><i class="fas fa-user"></i> Profile</a></li>
+        <li><a href="/UserEquipments"><i class="fas fa-shopping-bag"></i> Equipments</a></li>
+        <li><a href="/cart"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+        <li><a href="/order"><i class="fas fa-receipt"></i> Orders</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" style="padding-right: 30px;">
+        <li><a href="/"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div id="userInfo">
+    <h3>User Information</h3>
+    <p><strong>ID:</strong> <span id="userID"></span></p>
+    <p><strong>Name:</strong> <span id="username"></span></p>
+    <p><strong>Email:</strong> <span id="email"></span></p>
+    <p><strong>Role:</strong> <span id="role"></span></p>
+  </div>
+
+  <div class="section">
+    <h2><a href="/cart">Review Your Cart</a></h2>
+    <p>Ensure you have everything you need before checkout. Adjust quantities, remove items, or proceed to purchase your selected tools.</p>
+  </div>
+
+  <div class="section">
+    <h2><a href="/order">Track Your Orders</a></h2>
+    <p>Stay informed about the status of your placed orders, including current processing stages and estimated delivery times.</p>
+  </div>
+</body>
+
+</html>
